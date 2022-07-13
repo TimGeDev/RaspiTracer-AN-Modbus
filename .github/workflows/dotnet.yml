@@ -21,4 +21,25 @@ jobs:
       run: dotnet restore
     - name: Publish for Raspberry Pi
       run: dotnet publish -r linux-arm --self-contained false -p:PublishReadyToRun=true -p:PublishSingleFile=true
+    - name: Zip Published Files
+      run: zip -r ${{ github.event.repository.name }}.zip bin/Debug/net6.0/linux-arm/publish/
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: true
+        release_name: latest
+        tag_name: ${{ github.ref }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: upload Raspberry Pi artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./${{ github.event.repository.name }}.zip
+        asset_name: ${{ github.event.repository.name }}.zip
+        asset_content_type: application/gzip
       
