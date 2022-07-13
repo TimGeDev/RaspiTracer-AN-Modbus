@@ -27,6 +27,7 @@ jobs:
       uses: larryjoelane/delete-release-action@v1.0.24
       with:
         release-name: latest
+        token: ${{ github.token }}
     - name: release
       uses: actions/create-release@v1
       id: create_release
