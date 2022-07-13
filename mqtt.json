@@ -1,0 +1,7 @@
+{
+    "mqttHost": "x.x.x.x",
+    "mqttUser": "mqtt",
+    "mqttPass": "mqtt",
+    "mqttTopic": "home/solar/battery",
+    "mqttClientId": "SolarPi"
+}
