@@ -22,7 +22,7 @@ jobs:
     - name: Publish for Raspberry Pi
       run: dotnet publish -r linux-arm --self-contained false -p:PublishReadyToRun=true -p:PublishSingleFile=true
     - name: Zip Published Files
-      run: zip -r ${{ github.event.repository.name }}.zip bin/Debug/net6.0/linux-arm/publish/*
+      run: zip -j -r ${{ github.event.repository.name }}.zip bin/Debug/net6.0/linux-arm/publish/*
     - name: release
       uses: actions/create-release@v1
       id: create_release
