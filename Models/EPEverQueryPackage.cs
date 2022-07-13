@@ -3,43 +3,19 @@ namespace RaspTracer_AN_Modbus.Models
 {
     public class EPEverQueryPackage
     {
-        public EPEverQueryPackage(int deviceId = 1)
+        public EPEverQueryPackage(byte[] bytes, byte deviceId = 1)
         {
 
-            this.SetDeviceId(deviceId);
+            SetBytePart(0, deviceId);
+            SetBytePart(1, bytes[0]);
+            SetBytePart(2, bytes[1]);
+            SetBytePart(3, bytes[2]);
+            SetBytePart(4, bytes[3]);
+            SetBytePart(5, bytes[4]);
         }
 
         public byte[] byteRequest = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-
-        public void SetDeviceId(int Id)
-        {
-            byte[] byteId = BitConverter.GetBytes(Id);
-            SetBytePart(0, byteId.First());
-        }
-
-        public void SetFunctionCode(byte functionCode)
-        {
-            byte[] byteId = BitConverter.GetBytes(functionCode);
-            SetBytePart(1, byteId.First());
-        }
-
-        public void SetRegisterAddress(byte[] bytes)
-        {
-            SetBytePart(2, bytes[0]);
-            SetBytePart(3, bytes[1]);
-        }
-
-        public void SetRegisterCount(byte[] bytes)
-        {
-            SetBytePart(4, bytes[0]);
-            SetBytePart(5, bytes[1]);
-        }
-
-        public void SetAdditionalByte(byte additionalByte)
-        {
-            SetBytePart(6, additionalByte);
-        }
 
         private void SetBytePart(int index, byte byteValue = 0x00)
         {
@@ -62,9 +38,11 @@ namespace RaspTracer_AN_Modbus.Models
             this.SetBytePart(6, result[0]);
             this.SetBytePart(7, result[1]);
         }
-        public int GetValue()
+        public decimal GetValue(byte[] responseBytes, int factor = 100)
         {
-            return 0;
+            byte[] holdingRegister = new byte[] { responseBytes[3], responseBytes[4] };
+            Console.WriteLine(Logic.EPEverCommunicationHandler.ByteArrayToString(holdingRegister));
+            return (decimal)(holdingRegister[0] << 8 | holdingRegister[1]) / factor;
         }
 
     }
