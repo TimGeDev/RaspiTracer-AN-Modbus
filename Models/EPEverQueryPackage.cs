@@ -49,26 +49,18 @@ namespace RaspTracer_AN_Modbus.Models
 
         public byte[] GetQueryMessage()
         {
-            return new byte[]
-                    {
-                        byteRequest[0],
-                        byteRequest[1],
-                        byteRequest[2],
-                        byteRequest[3],
-                        byteRequest[4],
-                        byteRequest[5],
-                        byteRequest[6],
-                        CalculateCRCByte()
-                    };
+            this.CalculateCRCByte();
+            return byteRequest;
         }
 
-        public byte CalculateCRCByte()
+        public void CalculateCRCByte()
         {
             var param = new CRC.Parameters("CRC-16/MODBUS", 16, 0x8005, 0xFFFF, true, true, 0x0, 0x4B37);
             var crcClass = new CRC.Crc(param);
             ulong crc = crcClass.ComputeCrc(0xFFFF, byteRequest, 0, 7);
             var result = BitConverter.GetBytes(crc);
-            return result.First();
+            this.SetBytePart(6, result[0]);
+            this.SetBytePart(7, result[1]);
         }
         public int GetValue()
         {

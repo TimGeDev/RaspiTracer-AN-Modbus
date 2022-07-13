@@ -8,10 +8,9 @@ namespace RaspTracer_AN_Modbus.Models
             this.SetFunctionCode(0x04);
             this.SetRegisterAddress(new byte[] { 0x31, 0x04 });
             this.SetRegisterCount(new byte[] { 0x00, 0x01 });
-            this.SetAdditionalByte(0x7E);
         }
 
-        public decimal GetValue(byte[] responseBytes)
+        public static decimal GetValue(byte[] responseBytes)
         {
             byte[] holdingRegister = new byte[] { responseBytes[3], responseBytes[4] };
             Console.WriteLine(Logic.EPEverCommunicationHandler.ByteArrayToString(holdingRegister));

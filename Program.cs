@@ -8,16 +8,16 @@ internal class Program
 
     private static async Task Main(string[] args)
     {
+
         Console.WriteLine("Starting Up....");
 
         var queryPackage = new Models.EPEveryBatteryVoltageQuery();
 
         byte[] response = Logic.EPEverCommunicationHandler.GetValueFromEPever(queryPackage);
 
-        Console.WriteLine("Result: " + queryPackage.GetValue(response));
+        Console.WriteLine("Result: " + Models.EPEveryBatteryVoltageQuery.GetValue(response));
 
-
-        await Logic.MQTTHandler.SendToHassAsync(queryPackage.GetValue(response).ToString().Replace(",", "."));
+        await Logic.MQTTHandler.SendToHassAsync(Models.EPEveryBatteryVoltageQuery.GetValue(response).ToString().Replace(",", "."));
 
 
     }
