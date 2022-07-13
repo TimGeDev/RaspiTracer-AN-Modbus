@@ -3,8 +3,8 @@ using System.IO.Ports;
 
 namespace RaspTracer_AN_Modbus.Logic
 {
-	public class EPEverCommunicationHandler
-    { 
+    public class EPEverCommunicationHandler
+    {
         public const int TimeoutMs = 1000;
         public const string TTYPath = "/dev/ttyUSB0";
         public const int BaudRate = 115200;
@@ -40,7 +40,7 @@ namespace RaspTracer_AN_Modbus.Logic
 
             if (Program.debug)
             {
-                Console.WriteLine("Result:"  + ByteArrayToString(buffer));
+                Console.WriteLine("Result:" + ByteArrayToString(buffer));
             }
 
             return buffer;

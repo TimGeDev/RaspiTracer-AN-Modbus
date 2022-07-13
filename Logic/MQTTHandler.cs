@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RaspTracer_AN_Modbus.Logic
 {
-	public class MQTTHandler
+    public class MQTTHandler
     {
         private static string HOST = "";
         private static string USER = "";

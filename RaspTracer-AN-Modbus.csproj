@@ -8,4 +8,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="System.IO.Ports" />
+    <None Remove="Models\" />
+    <None Remove="Logic\" />
+    <None Remove="MQTTnet" />
+    <None Remove="Xamarin.MQTT" />
+    <None Remove="System.Net.Mqtt" />
+    <None Remove="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
+    <PackageReference Include="MQTTnet" Version="4.0.1.184" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Logic\" />
+  </ItemGroup>
 </Project>
