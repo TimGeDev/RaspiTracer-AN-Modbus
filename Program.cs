@@ -106,7 +106,7 @@ internal class Program
             byteArrayHigh[2] = (byte)(byteArrayHigh[2] + 1);
             var queryPackageHigh = new EPEverQueryPackage(byteArrayHigh);
             byte[] responseHigh = EPEverCommunicationHandler.GetValueFromEPever(queryPackageHigh);
-            responseBytes = new byte[] { responseHigh[3], responseHigh[4], response[3], response[4]  };
+            responseBytes = new byte[] { responseHigh[3], responseHigh[4], response[3], response[4] };
         }
 
         if (BitConverter.IsLittleEndian)
@@ -114,11 +114,11 @@ internal class Program
 
         if (param.HasHighRegister)
         {
-            return ((float)BitConverter.ToUInt32(responseBytes, 0) / param.Factor).ToString();
+            return ((float)BitConverter.ToUInt32(responseBytes, 0) / param.Factor).ToString().Replace(",", ".");
         }
         else
         {
-            return ((float)BitConverter.ToUInt16(responseBytes, 0) / param.Factor).ToString();
+            return ((float)BitConverter.ToUInt16(responseBytes, 0) / param.Factor).ToString().Replace(",", ".");
         }
 
     }
