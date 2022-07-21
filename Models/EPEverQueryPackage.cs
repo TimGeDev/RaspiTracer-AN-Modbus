@@ -38,12 +38,6 @@ namespace RaspTracer_AN_Modbus.Models
             this.SetBytePart(6, result[0]);
             this.SetBytePart(7, result[1]);
         }
-        public decimal GetValue(byte[] responseBytes, int factor = 100)
-        {
-            byte[] holdingRegister = new byte[] { responseBytes[3], responseBytes[4] };
-            Console.WriteLine(Logic.EPEverCommunicationHandler.ByteArrayToString(holdingRegister));
-            return (decimal)(holdingRegister[0] << 8 | holdingRegister[1]) / factor;
-        }
 
     }
 }

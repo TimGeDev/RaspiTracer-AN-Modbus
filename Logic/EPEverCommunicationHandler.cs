@@ -45,7 +45,6 @@ namespace RaspTracer_AN_Modbus.Logic
 
             byte[] buffer = new byte[SerialPort.BytesToRead];
             SerialPort.Read(buffer, 0, buffer.Length);
-            Console.WriteLine("length:" + SerialPort.BytesToRead);
 
             if (Program.debug)
             {
@@ -58,6 +57,7 @@ namespace RaspTracer_AN_Modbus.Logic
         {
             return BitConverter.ToString(ba).Replace("-", "");
         }
+
     }
 }
 
