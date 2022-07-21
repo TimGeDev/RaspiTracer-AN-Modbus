@@ -87,6 +87,7 @@ internal class Program
         {
             var value = RetrieveParameter(param);
             results.Add(param.Name, value);
+            Thread.Sleep(100);
         }
         return JsonConvert.SerializeObject(results, Formatting.None);
 

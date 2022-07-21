@@ -5,7 +5,7 @@ namespace RaspTracer_AN_Modbus.Logic
 {
     public class EPEverCommunicationHandler
     {
-        public const int TimeoutMs = 1000;
+        public const int TimeoutMs = 2000;
         public const string TTYPath = "/dev/ttyUSB0";
         public const int BaudRate = 115200;
         private static SerialPort SerialPort;
@@ -40,7 +40,7 @@ namespace RaspTracer_AN_Modbus.Logic
                     Console.WriteLine("Timeout reached");
                     return Array.Empty<byte>();
                 }
-                Thread.Sleep(10);
+                Thread.Sleep(50);
             }
 
             byte[] buffer = new byte[SerialPort.BytesToRead];
