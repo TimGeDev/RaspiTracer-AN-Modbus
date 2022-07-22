@@ -13,7 +13,7 @@ internal class Program
         new EPEverQuery() { Name = "LOAD_VOLTAGE", ByteArray = new byte[] { 0x04, 0x31, 0x0C, 0x00, 0x01 }, Factor = 100, HasHighRegister = false },
         new EPEverQuery() { Name = "LOAD_CURRENT", ByteArray = new byte[] { 0x04, 0x31, 0x0D, 0x00, 0x01 }, Factor = 100, HasHighRegister = false },
         new EPEverQuery() { Name = "BATTERY_VOLTAGE", ByteArray = new byte[] { 0x04, 0x33, 0x1A, 0x00, 0x01 }, Factor = 100, HasHighRegister = false },
-        new EPEverQuery() { Name = "BATTERY_CURRENT", ByteArray = new byte[] { 0x04, 0x33, 0x1B, 0x00, 0x01 }, Factor = 100, HasHighRegister = false }, // It should have one, but it only returns 0xFFFF
+        new EPEverQuery() { Name = "BATTERY_CURRENT", ByteArray = new byte[] { 0x04, 0x33, 0x1B, 0x00, 0x01 }, Factor = 100, HasHighRegister = true }, // It should have one, but it only returns 0xFFFF
         new EPEverQuery() { Name = "SOLAR_VOLTAGE", ByteArray = new byte[] { 0x04, 0x31, 0x00, 0x00, 0x01 }, Factor = 100, HasHighRegister = false },
         new EPEverQuery() { Name = "SOLAR_CURRENT", ByteArray = new byte[] { 0x04, 0x31, 0x01, 0x00, 0x01 }, Factor = 100, HasHighRegister = false },
         new EPEverQuery() { Name = "BATTERY_TEMPERATURE", ByteArray = new byte[] { 0x04, 0x31, 0x10, 0x00, 0x01 }, Factor = 100, HasHighRegister = false },
@@ -114,7 +114,7 @@ internal class Program
 
         if (param.HasHighRegister)
         {
-            return ((float)BitConverter.ToUInt32(responseBytes, 0) / param.Factor).ToString().Replace(",", ".");
+            return ((float)BitConverter.ToInt32(responseBytes, 0) / param.Factor).ToString().Replace(",", ".");
         }
         else
         {
