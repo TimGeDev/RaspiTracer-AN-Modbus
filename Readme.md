@@ -33,4 +33,5 @@ Coming soon.
 | Useful Tips and general direction    | http://www.informatik.htw-dresden.de/~beck/TracerLogging.html          |
 | CRC Libary                           | https://github.com/meetanthony/crccsharp |
 | CRC Online Tool (CRC-16/MODBUS)                          | https://crccalc.com |
+
 Note: when using the crccalc.com tool, make sure to reverse the bytes given as crc: 0xABCD => CDAB
