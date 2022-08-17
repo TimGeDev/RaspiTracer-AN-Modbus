@@ -24,7 +24,7 @@ jobs:
     - name: Zip Published Files ARM
       run: zip -j -r ${{ github.event.repository.name }}-arm.zip bin/Debug/net6.0/linux-arm/publish/*
     - name: Publish for Raspberry Pi ARM64
-      run: dotnet publish -r linux-arm --self-contained false -p:PublishReadyToRun=true -p:PublishSingleFile=true≈
+      run: dotnet publish -r linux-arm64 --self-contained false -p:PublishReadyToRun=true -p:PublishSingleFile=true≈
     - name: Zip Published Files ARM64
       run: zip -j -r ${{ github.event.repository.name }}-arm64.zip bin/Debug/net6.0/linux-arm64/publish/*
     - name: Delete Release
