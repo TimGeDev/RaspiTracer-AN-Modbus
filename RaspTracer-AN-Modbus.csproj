@@ -16,14 +16,18 @@
     <None Remove="Xamarin.MQTT" />
     <None Remove="System.Net.Mqtt" />
     <None Remove="Newtonsoft.Json" />
+    <None Remove="Microsoft.Extensions.Hosting" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
     <PackageReference Include="MQTTnet" Version="4.1.4.563" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Logic\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

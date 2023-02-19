@@ -1,34 +1,47 @@
 ﻿using System;
-using System.Net;
-using System.Text;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
 using Newtonsoft.Json.Linq;
+using RaspTracer_AN_Modbus.Logic;
 
-namespace RaspTracer_AN_Modbus.Logic
+namespace RaspTracer_AN_Modbus.Services
 {
-    public class MQTTHandler
+    public class MQTTService
     {
         private static string HOST = "";
         private static string USER = "";
         private static string PASS = "";
         private static string TOPIC = "";
         private static string CLIENTID = "";
+        private readonly ILogger<MQTTService> logger;
+        private readonly IMqttClient mqttClient;
 
-        public static async Task SendToHassAsync(string payload)
+        public MQTTService(ILogger<MQTTService> logger)
         {
+            this.logger = logger;
+            var mqttFactory = new MqttFactory();
+            mqttClient = mqttFactory.CreateMqttClient();
+
             loadCredentials();
 
-            var mqttFactory = new MqttFactory();
-            using var mqttClient = mqttFactory.CreateMqttClient();
             var mqttClientOptions = new MqttClientOptionsBuilder()
                 .WithTcpServer(HOST)
                 .WithClientId(CLIENTID)
                 .WithCredentials(USER, PASS)
                 .Build();
 
-            await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
+            mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
+        }
 
+        public void Disconnect()
+        {
+            mqttClient.DisconnectAsync();
+        }
+
+        public async Task SendToHassAsync(string payload)
+        {
             var applicationMessage = new MqttApplicationMessageBuilder()
                 .WithTopic(TOPIC)
                 .WithPayload(payload)
@@ -36,7 +49,7 @@ namespace RaspTracer_AN_Modbus.Logic
 
             await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
 
-            Console.WriteLine("MQTT application message is published.");
+            logger.LogInformation("Published: " + payload);
 
         }
 
