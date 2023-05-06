@@ -5,6 +5,12 @@ VisualStudioVersion = 25.0.1703.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspTracer-AN-Modbus", "RaspTracer-AN-Modbus.csproj", "{9193F6BC-F90E-4FCB-A634-926E7E07B4B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F8E0127-7E15-4640-8E79-F508F017ED69}"
+	ProjectSection(SolutionItems) = preProject
+		RaspiTracer.service = RaspiTracer.service
+		installService.sh = installService.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
