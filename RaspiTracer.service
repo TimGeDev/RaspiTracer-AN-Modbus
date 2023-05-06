@@ -1,4 +1,5 @@
-﻿[Unit]
+﻿  GNU nano 5.4                                    /etc/systemd/system/RaspiTracer.service *                                            
+[Unit]
 Description=RaspiTracerModbus Sytemd Service
 After=network.target
 Wants=network-online.target
@@ -6,8 +7,8 @@ Wants=network-online.target
 [Service]
 Restart=always
 Type=simple
-ExecStart=/root/RaspiTracer/RaspTracer-AN-Modbus
-Environment=
+ExecStart=/root/.dotnet/dotnet /root/RaspiTracer/RaspTracer-AN-Modbus.dll
+WorkingDirectory=/root/RaspiTracer
 
 [Install]
 WantedBy=multi-user.target

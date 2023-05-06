@@ -17,6 +17,7 @@ namespace RaspTracer_AN_Modbus.Services
         private static string CLIENTID = "";
         private readonly ILogger<MQTTService> logger;
         private readonly IMqttClient mqttClient;
+        private MqttClientOptions mqttClientOptions;
 
         public MQTTService(ILogger<MQTTService> logger)
         {
@@ -26,22 +27,28 @@ namespace RaspTracer_AN_Modbus.Services
 
             loadCredentials();
 
-            var mqttClientOptions = new MqttClientOptionsBuilder()
+            mqttClientOptions = new MqttClientOptionsBuilder()
                 .WithTcpServer(HOST)
                 .WithClientId(CLIENTID)
                 .WithCredentials(USER, PASS)
                 .Build();
-
-            mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
         }
 
-        public void Disconnect()
+        private void Connect()
+        { 
+            mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
+        }
+        internal void Disconnect()
         {
             mqttClient.DisconnectAsync();
         }
 
         public async Task SendToHassAsync(string payload)
         {
+            if (!mqttClient.IsConnected)
+            {
+                Connect();
+            }
             var applicationMessage = new MqttApplicationMessageBuilder()
                 .WithTopic(TOPIC)
                 .WithPayload(payload)
@@ -65,6 +72,12 @@ namespace RaspTracer_AN_Modbus.Services
             CLIENTID = credentials.mqttClientid;
             var t = "";
         }
+
+        public void Dispose()
+        {
+            Disconnect();
+        }
+
     }
 }
 

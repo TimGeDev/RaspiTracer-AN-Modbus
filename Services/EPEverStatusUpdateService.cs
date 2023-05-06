@@ -44,7 +44,8 @@ namespace RaspTracer_AN_Modbus.Services
 
             var stringResults = JsonConvert.SerializeObject(results);
 
-             _ = mqqtService.SendToHassAsync(stringResults);
+            
+           _ = mqqtService.SendToHassAsync(stringResults);
 
 
             logger.LogInformation("Reporting values: " + stringResults);
