@@ -31,14 +31,21 @@ namespace RaspTracer_AN_Modbus.Services
         private void RetrieveStatusInformation(object? state)
         {
 
-            Console.WriteLine("Starting Up....");
 
             var results = new Dictionary<string, string>();
 
             foreach (var param in AvailableParameters.parametersToRetrieve)
             {
-                var value = RetrieveParameter(param);
-                results.Add(param.Name, value);
+                try
+                {
+                    var value = RetrieveParameter(param);
+                    results.Add(param.Name, value);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError("Skipping bad parameter: " + param.Name);
+                    logger.LogError(ex.Message);
+                }
                 Thread.Sleep(100);
             }
 
@@ -50,8 +57,6 @@ namespace RaspTracer_AN_Modbus.Services
 
             logger.LogInformation("Reporting values: " + stringResults);
 
-
-            this.logger.LogInformation("work has been done");
         }
 
         private string RetrieveParameter(EPEverQuery param)
