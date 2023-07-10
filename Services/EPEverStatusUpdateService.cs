@@ -68,8 +68,8 @@ namespace RaspTracer_AN_Modbus.Services
 
             if (param.HasHighRegister)
             {
-                byte[] byteArrayHigh = param.ByteArray;
-                byteArrayHigh[2] = (byte)(byteArrayHigh[2] + 1);
+                byte[] byteArrayHigh = param.ByteArray.ToArray();
+                byteArrayHigh[2]++;
                 var queryPackageHigh = new EPEverQueryPackage(byteArrayHigh);
                 byte[] responseHigh = this.iOConnector.GetValueFromEPever(queryPackageHigh);
                 responseBytes = new byte[] { responseHigh[3], responseHigh[4], response[3], response[4] };
